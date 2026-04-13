@@ -1,5 +1,24 @@
 
 // =========================
+// 🚀 自动版本号（关键）
+// =========================
+const VERSION = Date.now();
+
+// =========================
+// 🌐 强制刷新缓存机制
+// =========================
+(function () {
+
+    const url = new URL(window.location.href);
+
+    // 如果没有版本号，自动加
+    if (!url.searchParams.get("v")) {
+        url.searchParams.set("v", VERSION);
+        window.location.replace(url.toString());
+    }
+
+})();
+// =========================
 // 🔐 状态控制（关键！）
 // =========================
 let unlocked = false;
