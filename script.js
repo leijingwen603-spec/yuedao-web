@@ -1,26 +1,13 @@
-
 // =========================
-// 🚀 自动版本号（关键）
-// =========================
-const VERSION = Date.now();
-
-// =========================
-// 🌐 强制刷新缓存机制
-// =========================
-
-
-
-// =========================
-// 🔐 状态控制（关键！）
+// 🔐 状态
 // =========================
 let unlocked = false;
-let step = 0; // 0=第一弹窗 1=密码框 2=已进入
 
 // =========================
 // 🌐 云端密码
 // =========================
 async function getPassword() {
-    const res = await fetch("config.json");
+    const res = await fetch("config.json?t=" + Date.now());
     const data = await res.json();
     return data.password;
 }
@@ -66,46 +53,35 @@ const data = [
 // =========================
 // 🚀 启动
 // =========================
-window.onload = function () {
-    showStep1();
-};
+window.onload = () => showStep1();
 
 // =========================
-// 🔥 STEP 1：谢谢眼泪弹窗
+// STEP1
 // =========================
 function showStep1() {
-
-    step = 0;
-
-    document.body.innerHTML = `
+    document.getElementById("app").innerHTML = `
         <div class="popup">
             <div class="box">
                 <h2>快说谢谢眼泪</h2>
-                <button onclick="goStep2()">谢谢</button>
+                <button onclick="showStep2()">谢谢</button>
             </div>
         </div>
     `;
 }
 
 // =========================
-// 🔥 STEP 2：密码输入
+// STEP2
 // =========================
-function goStep2() {
-
-    step = 1;
-
-    document.body.innerHTML = `
+function showStep2() {
+    document.getElementById("app").innerHTML = `
         <div class="popup">
             <div class="box">
-                <h3>请输入访问密码（🎂）</h3>
-
-                <input id="passwordInput" type="password" placeholder="密码">
-
+                <h3>请输入密码</h3>
+                <input id="pwd" type="password">
                 <div class="btns">
                     <button onclick="checkPassword()">确定</button>
-                    <button onclick="backToStep1()">取消</button>
+                    <button onclick="showStep1()">返回</button>
                 </div>
-
                 <p id="tip"></p>
             </div>
         </div>
@@ -113,42 +89,28 @@ function goStep2() {
 }
 
 // =========================
-// 🔄 返回第一步
-// =========================
-function backToStep1() {
-    showStep1();
-}
-
-// =========================
-// 🔐 验证密码
+// 验证
 // =========================
 async function checkPassword() {
-
-    const input = document.getElementById("passwordInput").value;
-    const tip = document.getElementById("tip");
-
+    const input = document.getElementById("pwd").value;
     const real = await getPassword();
 
     if (input === real) {
         unlocked = true;
-        step = 2;
         showApp();
     } else {
-        tip.innerText = "密码错误";
+        document.getElementById("tip").innerText = "密码错误";
     }
 }
 
 // =========================
-// 🚀 STEP 3：进入搜索界面
+// 主界面
 // =========================
 function showApp() {
-
-    document.body.innerHTML = `
+    document.getElementById("app").innerHTML = `
         <h2>🌙 月刀搜索</h2>
-
-        <input id="input" placeholder="请输入关键词">
+        <input id="input" placeholder="输入关键词">
         <button onclick="search()">搜索</button>
-
         <p id="tip"></p>
         <div id="result"></div>
 
@@ -157,19 +119,15 @@ function showApp() {
         </div>
     `;
 
-    // 回车搜索
     document.getElementById("input").addEventListener("keydown", e => {
         if (e.key === "Enter") search();
     });
 }
 
 // =========================
-// 🔍 搜索
+// 搜索
 // =========================
 function search() {
-
-    if (!unlocked) return;
-
     const input = document.getElementById("input").value.toLowerCase();
     const result = document.getElementById("result");
     const tip = document.getElementById("tip");
@@ -184,6 +142,8 @@ function search() {
         }
     });
 
+    res = [...new Set(res)];
+
     if (res.length === 0) {
         tip.innerText = "查无此信息";
     } else {
@@ -191,7 +151,7 @@ function search() {
 
         res.forEach(src => {
             const img = document.createElement("img");
-            img.src = src;
+            img.src = src + "?t=" + Date.now(); // 🚀 图片防缓存
             img.onclick = () => showImage(src);
             result.appendChild(img);
         });
@@ -199,14 +159,10 @@ function search() {
 }
 
 // =========================
-// 🖼 放大图片
+// 图片放大
 // =========================
 function showImage(src) {
-
-    let overlay = document.getElementById("overlay");
-
-    if (!overlay) return;
-
+    const overlay = document.getElementById("overlay");
     overlay.style.display = "flex";
     document.getElementById("bigImg").src = src;
 }

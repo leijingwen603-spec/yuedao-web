@@ -3,43 +3,22 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- 🚀 防缓存关键 -->
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+
     <title>月刀搜索</title>
-    <link rel="stylesheet" href="style.css">
+
+    <link rel="stylesheet" href="style.css?v=2">
 </head>
 
 <body>
 
-<h2>🌙 月刀搜索</h2>
+<div id="app"></div>
 
-<input id="input" placeholder="请输入关键词">
-<button onclick="search()">搜索</button>
-
-<p id="tip"></p>
-
-<div id="result"></div>
-
-<!-- 🔍 图片放大 -->
-<div id="overlay" onclick="closeImage()">
-    <img id="bigImg">
-</div>
-
-<!-- 🔐 登录弹窗 -->
-<div id="loginBox">
-    <div class="login-content">
-        <h3>请说谢谢眼泪</h3>
-
-        <input id="passwordInput" type="password" placeholder="请输入访问密码">
-
-        <div class="btns">
-            <button onclick="checkPassword()">确定</button>
-            <button onclick="cancelLogin()">取消</button>
-        </div>
-
-        <p id="loginTip"></p>
-    </div>
-</div>
-
-<script src="script.js?v=20260413"></script>
+<script src="script.js?v=2"></script>
 
 </body>
 </html>

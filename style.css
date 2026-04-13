@@ -1,145 +1,73 @@
-
-/* =========================
-   🌙 基础页面
-========================= */
 body {
-    font-family: Arial, sans-serif;
-    padding: 15px;
+    font-family: Arial;
+    text-align: center;
     margin: 0;
     background: #f5f5f5;
 }
 
 h2 {
-    text-align: center;
+    margin-top: 20px;
 }
 
-/* =========================
-   🔍 搜索区
-========================= */
 input {
-    width: 70%;
     padding: 10px;
+    width: 70%;
     font-size: 16px;
 }
 
 button {
-    padding: 10px;
+    padding: 10px 15px;
     font-size: 16px;
-    margin-left: 5px;
 }
 
-#tip {
-    margin-top: 10px;
-    text-align: center;
-    color: #333;
-}
-
-/* =========================
-   🖼 搜索结果图片
-========================= */
 #result {
-    margin-top: 10px;
+    margin-top: 20px;
 }
 
 #result img {
-    width: 100%;
-    margin-top: 10px;
+    width: 90%;
+    max-width: 300px;
+    margin: 10px;
     border-radius: 10px;
-    cursor: pointer;
 }
 
-/* =========================
-   🔍 图片放大层
-========================= */
+/* 放大图 */
 #overlay {
     position: fixed;
     top: 0;
     left: 0;
     right: 0;
     bottom: 0;
-    background: rgba(0,0,0,0.85);
-
+    background: rgba(0,0,0,0.8);
     display: none;
     justify-content: center;
     align-items: center;
 }
 
 #overlay img {
-    max-width: 95%;
-    max-height: 95%;
-    border-radius: 8px;
+    max-width: 90%;
+    max-height: 90%;
 }
 
-/* =========================
-   🔐 弹窗通用样式（第一层+第二层共用）
-========================= */
+/* 弹窗 */
 .popup {
     position: fixed;
     top: 0;
     left: 0;
-    width: 100%;
-    height: 100%;
-
+    right: 0;
+    bottom: 0;
     background: rgba(0,0,0,0.6);
-
     display: flex;
     justify-content: center;
     align-items: center;
-
-    z-index: 999;
 }
 
-/* 弹窗盒子 */
 .box {
     background: white;
     padding: 20px;
-    border-radius: 12px;
-    width: 80%;
-    max-width: 300px;
-    text-align: center;
-}
-
-/* =========================
-   🔐 输入框
-========================= */
-.box input {
-    width: 90%;
-    padding: 10px;
-    margin-top: 10px;
-    font-size: 16px;
-}
-
-/* =========================
-   🔘 按钮
-========================= */
-.btns {
-    margin-top: 10px;
+    border-radius: 10px;
 }
 
 .btns button {
     margin: 5px;
-    padding: 8px 12px;
-    font-size: 14px;
-}
-
-/* =========================
-   📱 手机优化
-========================= */
-@media screen and (max-width: 600px) {
-
-    input {
-        width: 65%;
-    }
-
-    button {
-        font-size: 14px;
-    }
-
-    .box {
-        width: 85%;
-    }
-
-    #result img {
-        border-radius: 8px;
-    }
 }
