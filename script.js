@@ -7,17 +7,9 @@ const VERSION = Date.now();
 // =========================
 // 🌐 强制刷新缓存机制
 // =========================
-(function () {
 
-    const url = new URL(window.location.href);
 
-    // 如果没有版本号，自动加
-    if (!url.searchParams.get("v")) {
-        url.searchParams.set("v", VERSION);
-        window.location.replace(url.toString());
-    }
 
-})();
 // =========================
 // 🔐 状态控制（关键！）
 // =========================
@@ -212,6 +204,8 @@ function search() {
 function showImage(src) {
 
     let overlay = document.getElementById("overlay");
+
+    if (!overlay) return;
 
     overlay.style.display = "flex";
     document.getElementById("bigImg").src = src;
